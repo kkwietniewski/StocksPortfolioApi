@@ -1,12 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace StocksPortfolio.Infrastructure.Services
+namespace StocksPortfolio.Infrastructure.Entities
 {
     public class Portfolio
     {

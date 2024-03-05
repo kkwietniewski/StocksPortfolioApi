@@ -6,8 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksService", "StocksService\StocksService.csproj", "{38696413-5D4D-4C4F-AE0A-01B3BB6BCC46}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksPortfolio.Api", "StocksPortfolio.Api\StocksPortfolio.Api.csproj", "{CE6E497A-266D-4A63-8B37-C7F16547D784}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A7BA7161-1A0C-433C-8CEB-94848795E387} = {A7BA7161-1A0C-433C-8CEB-94848795E387}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksPortfolio.Core", "StocksPortfolio.Core\StocksPortfolio.Core.csproj", "{A7BA7161-1A0C-433C-8CEB-94848795E387}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9368CB53-892A-4508-A506-3F6D8BF0C28B} = {9368CB53-892A-4508-A506-3F6D8BF0C28B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksPortfolio.Infrastructure", "StocksPortfolio.Infrastructure\StocksPortfolio.Infrastructure.csproj", "{9368CB53-892A-4508-A506-3F6D8BF0C28B}"
 EndProject
