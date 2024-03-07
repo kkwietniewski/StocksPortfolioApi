@@ -21,6 +21,9 @@ namespace StocksPortfolio.Core.Services
             _portfolioCollection = client.GetDatabase("portfolioDb").GetCollection<Portfolio>("Portfolios");
         }
 
+        public async Task<List<Portfolio>> GetAllPortfolios()
+            => await _portfolioCollection.AsQueryable().ToListAsync();
+
         public async Task<Portfolio> GetPortfolio(ObjectId id)
         {
             var idFilter = Builders<Portfolio>.Filter.Eq(portfolio => portfolio.Id, id);
@@ -29,8 +32,6 @@ namespace StocksPortfolio.Core.Services
         }
 
         public async Task DeletePortfolio(ObjectId id)
-        {
-            await _portfolioCollection.DeleteOneAsync(Builders<Portfolio>.Filter.Eq(portfolio => portfolio.Id, id));
-        }
+            => await _portfolioCollection.DeleteOneAsync(Builders<Portfolio>.Filter.Eq(portfolio => portfolio.Id, id));
     }
 }
