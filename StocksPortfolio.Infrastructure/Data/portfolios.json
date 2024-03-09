@@ -3,6 +3,7 @@
     "$oid": "50227b375dff9218248eadc4"
   },
   "totalValue": 0,
+  "deleted":  false,
   "stocks": [
     {
       "ticker": "AAPL",
@@ -36,6 +37,7 @@
     "$oid": "50227b375dff9218248eadc5"
   },
   "totalValue": 0,
+  "deleted": false,
   "stocks": [
     {
       "ticker": "AAPL",
@@ -69,6 +71,7 @@
     "$oid": "50227b375dff9218248eadc6"
   },
   "totalValue": 0,
+  "deleted": false,
   "stocks": [
     {
       "ticker": "AAPL",

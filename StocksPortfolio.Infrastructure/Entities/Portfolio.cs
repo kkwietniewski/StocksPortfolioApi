@@ -11,6 +11,9 @@ namespace StocksPortfolio.Infrastructure.Entities
         [BsonElement("totalValue")]
         public float CurrentTotalValue { get; set; }
 
+        [BsonElement("deleted")]
+        public bool Deleted { get; set; }
+
         [BsonElement("stocks")]
         public ICollection<Stock> Stocks { get; set; }
     }

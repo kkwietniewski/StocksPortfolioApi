@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using StocksPortfolio.Api.ApiModels;
 using StocksPortfolio.Infrastructure.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace StocksPortfolio.Core.Services
@@ -13,6 +14,8 @@ namespace StocksPortfolio.Core.Services
         private readonly HttpClient _httpClient;
         private readonly HttpResponseMessage _currencies;
 
+        public QuoteModel QuoteModel { get; set; }
+
         public ExchangeRateProvderService(IOptions<CurrencyLayerModel> currencyLayer)
         {
             _currencyLayer = currencyLayer;
@@ -20,15 +23,27 @@ namespace StocksPortfolio.Core.Services
             _currencies = _httpClient.GetAsync($"live?access_key={_currencyLayer.Value.ApiKey}").Result;
         }
 
-        public async Task<Stream> GetCurrenciesStream()
-            => await _currencies.Content.ReadAsStreamAsync();
-
-        public async Task<QuoteModel> GetCurrencies()
+        public void ScheduleRefreshCurrenciesCollection()
         {
-            using (Stream stream = await GetCurrenciesStream() ?? throw new Exception("Cannot load data from currencylayer.com"))
-            {
-                return await JsonSerializer.DeserializeAsync<QuoteModel>(stream);
-            }
+            Timer timer = new Timer(_ => RefreshCurrencies(), null, TimeSpan.Zero, TimeSpan.FromHours(24));
+        }
+
+        private void RefreshCurrencies()
+        {
+            Task.Run(GetCurrencies).GetAwaiter().GetResult();
+        }
+
+        public async Task<Stream> GetCurrenciesStream()
+        {
+            var response = await _currencies.Content.ReadAsStringAsync();
+            byte[] byteArray = Encoding.UTF8.GetBytes(response);
+            return new MemoryStream(byteArray);
+        }
+
+        public async Task GetCurrencies()
+        {
+            using Stream stream = await GetCurrenciesStream() ?? throw new Exception("Cannot load data from currencylayer.com");
+            QuoteModel = await JsonSerializer.DeserializeAsync<QuoteModel>(stream);
         }
     }
 }

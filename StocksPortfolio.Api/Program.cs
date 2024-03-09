@@ -15,12 +15,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<DataProviderService>();
-builder.Services.AddTransient<ExchangeRateProvderService>();
+builder.Services.AddSingleton<ExchangeRateProvderService>();
 builder.Services.AddTransient<StocksService.StocksService>();
 builder.Services.AddTransient<PortfolioService>();
 builder.Services.Configure<CurrencyLayerModel>(builder.Configuration.GetSection("CurrencyLayer"));
 
 var app = builder.Build();
+
+var exchangeRateProvderService = app.Services.GetRequiredService<ExchangeRateProvderService>();
+exchangeRateProvderService.ScheduleRefreshCurrenciesCollection();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
